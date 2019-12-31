@@ -1,0 +1,23 @@
+{
+  "compileOnSave": false,
+  "includes": ["typings/**/*.d.ts"],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "downlevelIteration": true,
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "@src": ["src"]
+    }
+  }
+}
