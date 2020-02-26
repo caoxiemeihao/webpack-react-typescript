@@ -2,7 +2,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { StatsWriterPlugin } = require("webpack-stats-plugin")
+const { StatsWriterPlugin } = require("webpack-stats-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const merge = require('webpack-merge');
 const { PATH, DIRECTORY: DIR } = require('./config');
 
@@ -39,12 +40,16 @@ module.exports = function (env) {
     plugins: [
       new HtmlWebpackPlugin({
         template: path.join(PATH.ABS.root, 'public/index.html'),
+        favicon: path.join(PATH.ABS.root, 'public/favicon.png'),
       }),
     ],
   };
   // 开发环境配置
   const config_dev = {
-
+    devServer: {
+      contentBase: PATH.ABS.dist,
+      hot: true,
+    },
   };
   // 生产环境配置
   const config_prod = {
@@ -53,6 +58,10 @@ module.exports = function (env) {
       new StatsWriterPlugin({
         filename: 'manifest.json',
       }),
+      new CopyWebpackPlugin([
+        // public 文件夹
+        { from: path.join(PATH.ABS.root, 'public'), to: PATH.ABS.dist },
+      ]),
     ],
   };
 

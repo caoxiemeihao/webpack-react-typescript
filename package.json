@@ -5,12 +5,14 @@
   "author": "草鞋没号 <308487730@qq.com>",
   "license": "MIT",
   "scripts": {
+    "start": "node scripts/start.js --env=development",
     "build": "node scripts/build.js --env=production"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "colors": "^1.4.0",
     "commander": "^4.1.1",
+    "copy-webpack-plugin": "^5.1.1",
     "debug-trace": "^2.2.3",
     "html-webpack-plugin": "^3.2.0",
     "optimist": "^0.6.1",
