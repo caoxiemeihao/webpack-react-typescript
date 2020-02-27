@@ -1,1 +1,13 @@
-console.log('Hello world!')
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+
+class App extends Component {
+  render() {
+    return <div>Hello world!</div>
+  }
+}
+
+(ReactDOM.render || ReactDOM.hydrate)(
+  <App />,
+  document.getElementById('app'),
+);

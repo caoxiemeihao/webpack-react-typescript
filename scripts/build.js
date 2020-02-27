@@ -1,16 +1,14 @@
 /**
  * webpack 构建脚本
  */
+
 const program = require('commander');
 const argv = require('optimist').argv;
+require('./set-env')(argv.env);
 const webpack = require('webpack');
 // require('debug-trace');
 const ora = require('ora');
 const configFactory = require('../config/webpack.config');
-
-
-// 写入 env.js
-require('./set-env')(argv.env);
 
 const config = configFactory(argv.env);
 const compiler = webpack(config);

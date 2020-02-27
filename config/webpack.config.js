@@ -15,7 +15,7 @@ module.exports = function (env) {
     mode: isDev ? 'development' : 'production',
     devtool: isDev ? 'cheap-module-eval-source-map' : 'cheap-module-source-map',
     entry: {
-      index: path.join(PATH.ABS.src, 'index.ts'),
+      app: path.join(PATH.ABS.src, 'App.tsx'),
     },
     output: {
       // publicPath: '/',
@@ -34,7 +34,16 @@ module.exports = function (env) {
     module: {
       rules: [
         // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
-        { test: /\.tsx?$/, loader: 'ts-loader', },
+        // { test: /\.tsx?$/, loader: 'ts-loader', },
+        {
+          test: /\.(js|jsx|ts|tsx)$/,
+          include: PATH.ABS.src,
+          loader: 'babel-loader',
+          options: {
+            // https://www.npmjs.com/package/babel-preset-react-app
+            presets: [["react-app", { "flow": false, "typescript": true }]],
+          },
+        },
       ],
     },
     plugins: [

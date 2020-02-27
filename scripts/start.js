@@ -2,12 +2,12 @@
  * webpack 开发脚本
  */
 const path = require('path');
+const argv = require('optimist').argv;
+require('./set-env')(argv.env);
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const ora = require('ora');
-const argv = require('optimist').argv;
 const configFactory = require('../config/webpack.config');
-const { PATH } = require('../config/config');
 
 const config = configFactory(argv.env);
 const compiler = webpack(config);

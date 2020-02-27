@@ -8,6 +8,10 @@ require('colors');
  * @param NODE_ENV
  */
 module.exports = function (NODE_ENV) {
+  // Do this as the first thing so that any code reading it knows the right env.
+  process.env.BABEL_ENV = NODE_ENV;
+  process.env.NODE_ENV = NODE_ENV;
+
   const str = `
 // 构建时间戳
 exports.BUILD_TIMESTAMP = '${Date.now()}';

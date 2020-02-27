@@ -9,6 +9,8 @@
     "importHelpers": true,
     "downlevelIteration": true,
     "target": "es2015",
+    "jsx": "preserve", // Cannot use JSX unless the '--jsx' flag is provided.
+    "allowSyntheticDefaultImports": true, // import React from 'react' 警告
     "typeRoots": [
       "node_modules/@types"
     ],
