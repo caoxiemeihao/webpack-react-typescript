@@ -8,6 +8,26 @@ const merge = require('webpack-merge');
 const { PATH, DIRECTORY: DIR } = require('./config');
 
 
+const cssRegx = /\.css$/;
+const cssModuleRegx = /\.module\.css$/;
+const lessRegx = /\.less$/;
+const lessModuleRegx = /\.module\.less$/;
+
+function getStyleLoader(modules = false) {
+  const loaders = ['style-loader'];
+  if (modules) {
+    loaders.push({
+      loader: 'css-loader',
+      options: {
+        modules: true,
+      },
+    });
+  } else {
+    loaders.push('css-loader');
+  }
+  return loaders;
+}
+
 module.exports = function (env) {
   const isDev = env === 'development';
 
@@ -43,6 +63,36 @@ module.exports = function (env) {
             // https://www.npmjs.com/package/babel-preset-react-app
             presets: [["react-app", { "flow": false, "typescript": true }]],
           },
+        },
+        {
+          test: cssRegx,
+          exclude: cssModuleRegx,
+          use: getStyleLoader(),
+        },
+        {
+          test: cssModuleRegx,
+          use: getStyleLoader(true),
+        },
+        {
+          test: lessRegx,
+          exclude: lessModuleRegx,
+          use: [...getStyleLoader(), 'less-loader'],
+        },
+        {
+          test: lessModuleRegx,
+          use: [...getStyleLoader(true), 'less-loader'],
+        },
+        {
+          test: /\.(png|jpg|gif)$/i,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 2014 * 9, // 小于 9k 资源将被编码成 base64 格式
+                name: `${DIR.static}/[name].[ext]`,
+              },
+            },
+          ],
         },
       ],
     },
